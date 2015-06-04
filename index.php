@@ -1,11 +1,27 @@
 <?php
 require "vendor/autoload.php";
 $uri = "https://gcm-http.googleapis.com/gcm/send";
+/*
+to: es el registration id a donde se envia la notificación
+data: son los datos que se recibe en el dispositivo
+
+Authorization key: es la api key que se genera en google console
+
+Se puede utilizar también:
+{ "data": {
+    "score": "5x1",
+    "time": "15:10"
+  },
+  "registration_ids" : ["APA91bHun4MxP5egoKMwt2KZFBaFUH-1RYqx...",""]	
+}
+
+*/
+$body = '{ "to" : "ed0Fs8AuOWU:APA91bENQeLL_V...", "data" : { "title":"Titulo ", "subtitle":"Subtitulo", "count_ads":12,"otrodato":"valor" } }';
 $response = \Httpful\Request::post($uri)
 			->sendsJson()
-			->body('{ "to" : "ed0Fs8AuOWU:APA91bENQeLL_V2Oga6XaGMmHu1datIQE7Sh3iHV2hozYGHgrJ4_BX4MEAYi9yfsfpnuhSQA6GYR1jrii-4dYSljkClHTL8azRiUyvhp9UOFmQDyAtIsre9Np8N7AwqSwqqiCVtWni7b", "data" : { "title":"Titulo ", "subtitle":"Subtitulo", "count_ads":12,"otrodato":"valor" } }')
+			->body($body)
 			->addHeaders(array(
-        		'Authorization' => 'key=AIzaSyB9Bv3VoLZwKrwW9_WDMotcIH20GADCOgg',
+        		'Authorization' => 'key=AIzaSyB9Bv3VoL....',
     		))
 			->send();
 echo "<pre>";
